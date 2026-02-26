@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.painel {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 40px;
+}
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titulo {
+  font-size: 3vw;
+  letter-spacing: 3px;
+}
+
+.relogio {
+  font-size: 3vw;
+  font-weight: bold;
+  color: #00ff88;
+}
+
+.ticker {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  background: #111;
+  padding: 40px 0;
+}
+
+.ticker-content {
+  display: inline-block;
+  animation: scroll 20s linear infinite;
+}
+
+.item {
+  display: inline-block;
+  margin-right: 80px;
+  font-size: 3vw;
+}
+
+.nome {
+  margin-right: 15px;
+}
+
+.valor {
+  color: #00ff88;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00ff88;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
