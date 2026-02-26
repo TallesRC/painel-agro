@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 
+// Imagem da Secretaria
+import logoSecretaria from "./assets/SEDEEA.jpg";
+
 function App() {
   const [cotacoes, setCotacoes] = useState([]);
   const [hora, setHora] = useState(new Date());
@@ -27,16 +30,32 @@ function App() {
     }
   };
 
+  // Formata a data
+  const formatarData = (data) => {
+    return data.toLocaleDateString("pt-BR", {
+       day: '2-digit',
+    month: '2-digit',
+    year: '2-digit',
+    });
+  };
+
   return (
     <div className="painel">
-
+      {/* ---------- TOPO ---------- */}
       <div className="topo">
-        <h1>🌾 PAINEL AGRO</h1>
-        <div className="relogio">
-          {hora.toLocaleTimeString()}
+        <div className="topo-esquerda">
+          <h1>🌾 PAINEL AGRO</h1>
+          <img src={logoSecretaria} alt="Secretaria" className="logo-secretaria" />
+        </div>
+        <div className="relogio-container"></div>
+        <div className="relogio">{hora.toLocaleTimeString()}
+        <div className="data">{formatarData(hora)}</div>
+        
+
         </div>
       </div>
 
+      {/* ---------- CARDS ---------- */}
       <div className="cards">
         {cotacoes.map((item, index) => (
           <div key={index} className="card">
@@ -46,6 +65,7 @@ function App() {
         ))}
       </div>
 
+      {/* ---------- TICKER ---------- */}
       <div className="ticker">
         <div className="ticker-content">
           {cotacoes.map((item, index) => (
@@ -55,7 +75,6 @@ function App() {
           ))}
         </div>
       </div>
-
     </div>
   );
 }
