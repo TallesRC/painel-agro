@@ -1,17 +1,19 @@
 body {
   margin: 0;
   overflow: hidden;
-  background-color: #000;
+  background: #000;
   font-family: Arial, Helvetica, sans-serif;
   color: white;
 }
 
 .painel {
   height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px 40px;
+  padding: 2vh 3vw;
+  box-sizing: border-box;
 }
 
 .topo {
@@ -20,52 +22,66 @@ body {
   align-items: center;
 }
 
-.titulo {
+.topo h1 {
   font-size: 3vw;
-  letter-spacing: 3px;
 }
 
 .relogio {
   font-size: 3vw;
   font-weight: bold;
   color: #00ff88;
+  animation: brilho 2s infinite alternate;
+}
+
+.cards {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2vw;
+  align-items: center;
+}
+
+.card {
+  background: #111;
+  border-radius: 15px;
+  padding: 2vh;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,255,100,0.3);
+  animation: brilho 3s infinite alternate;
+}
+
+.card h2 {
+  font-size: 1.8vw;
+}
+
+.card p {
+  font-size: 2.5vw;
+  font-weight: bold;
+  color: #00ff88;
 }
 
 .ticker {
-  width: 100%;
+  height: 8vh;
   overflow: hidden;
   white-space: nowrap;
-  position: relative;
   background: #111;
-  padding: 40px 0;
+  display: flex;
+  align-items: center;
 }
 
 .ticker-content {
   display: inline-block;
-  animation: scroll 20s linear infinite;
-}
-
-.item {
-  display: inline-block;
-  margin-right: 80px;
-  font-size: 3vw;
-}
-
-.nome {
-  margin-right: 15px;
-}
-
-.valor {
+  animation: scroll 25s linear infinite;
+  font-size: 2vw;
   color: #00ff88;
-  font-weight: bold;
-  text-shadow: 0 0 10px #00ff88;
 }
 
 @keyframes scroll {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(-100%);
-  }
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes brilho {
+  from { text-shadow: 0 0 5px #00ff88; }
+  to { text-shadow: 0 0 20px #00ff88; }
 }

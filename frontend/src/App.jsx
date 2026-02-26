@@ -8,11 +8,12 @@ function App() {
 
   useEffect(() => {
     buscarCotacoes();
-    const intervalo = setInterval(buscarCotacoes, 10000); // atualiza a cada 10s
+
+    const atualizar = setInterval(buscarCotacoes, 10000);
     const relogio = setInterval(() => setHora(new Date()), 1000);
 
     return () => {
-      clearInterval(intervalo);
+      clearInterval(atualizar);
       clearInterval(relogio);
     };
   }, []);
@@ -28,23 +29,33 @@ function App() {
 
   return (
     <div className="painel">
+
       <div className="topo">
-        <h1 className="titulo">🌾 PAINEL AGRO</h1>
+        <h1>🌾 PAINEL AGRO</h1>
         <div className="relogio">
           {hora.toLocaleTimeString()}
         </div>
       </div>
 
+      <div className="cards">
+        {cotacoes.map((item, index) => (
+          <div key={index} className="card">
+            <h2>{item.nome}</h2>
+            <p>R$ {item.valor}</p>
+          </div>
+        ))}
+      </div>
+
       <div className="ticker">
         <div className="ticker-content">
           {cotacoes.map((item, index) => (
-            <div key={index} className="item">
-              <span className="nome">{item.nome}</span>
-              <span className="valor">R$ {item.valor}</span>
-            </div>
+            <span key={index}>
+              {item.nome} - R$ {item.valor} &nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
           ))}
         </div>
       </div>
+
     </div>
   );
 }
