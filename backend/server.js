@@ -276,6 +276,6 @@ setInterval(atualizarCotacoes, 300000);
 
 atualizarCotacoes();
 
-app.listen(4000, () => {
+app.listen(4000, "0.0.0.0", () => {
   console.log("Servidor rodando na porta 4000");
 });
