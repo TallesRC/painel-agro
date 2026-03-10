@@ -27,7 +27,7 @@ const [carregado, setCarregado] = useState(false);
 
   const buscarCotacoes = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/cotacoes");
+      const response = await axios.get("http://172.16.0.100:4000/cotacoes");
 
 console.log("API RETORNOU:", response.data); // 👈 VERIFICAR
 
@@ -55,7 +55,7 @@ setCarregado(true);
     year: '2-digit',
     });
   };
-<<<<<<< HEAD
+
 if (!carregado) {
   return <div className="loading">Carregando painel...</div>;
 }
@@ -95,27 +95,12 @@ if (!carregado) {
     </div>
 
   </div>
+  
 
 
-=======
 
-  return (
-    <div className="painel">
-      {/* ---------- TOPO ---------- */}
-      <div className="topo">
-        <div className="topo-esquerda">
-          <h1>🌾 PAINEL AGRO</h1>
-          <img src={logoSecretaria} alt="Secretaria" className="logo-secretaria" />
-        </div>
-        <div className="relogio-container"></div>
-        <div className="relogio">{hora.toLocaleTimeString()}
-        <div className="data">{formatarData(hora)}</div>
-        
 
-        </div>
-      </div>
-
->>>>>>> d0bd92460d724c165628d5ce10cd0cfa652050d1
+  
       {/* ---------- CARDS ---------- */}
       <div className="cards">
         {cotacoes.map((item, index) => (
