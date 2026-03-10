@@ -45,7 +45,6 @@ async function buscarCafe() {
 
         resultado = {
           nome: "Café Arábica",
-          cidade: cidade,
           valor: valor
         };
 
@@ -81,7 +80,6 @@ async function buscarMilho() {
 
         resultado = {
           nome: "Milho",
-          cidade: cidade,
           valor: valor
         };
 
@@ -127,7 +125,6 @@ async function buscarSoja() {
 
         resultado = {
           nome: "Soja",
-          cidade: "Paraná",
           valor: valor
         };
 
@@ -166,7 +163,6 @@ async function buscarBoi() {
 
         resultado = {
           nome: "Boi Gordo",
-          cidade: cidade,
           valor: valor
         };
 
