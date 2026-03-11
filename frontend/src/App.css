@@ -1,162 +1,225 @@
-/* ---------- TOPO ---------- */
+body{
+margin:0;
+overflow:hidden;
+background:#000;
+font-family:Arial, Helvetica, sans-serif;
+color:white;
+}
+
+.painel{
+height:100vh;
+width:100vw;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+padding:2vh 3vw;
+box-sizing:border-box;
+}
+
+/* TOPO */
 
 .topo{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:10px 20px;
+flex-wrap:wrap;
+gap:15px;
 background:#0a0a0a;
-color:white;
+padding:10px 20px;
+border-radius:10px;
 }
 
-/* lado esquerdo */
 .topo-esquerda{
 display:flex;
 align-items:center;
 gap:20px;
+flex-wrap:wrap;
 }
 
 .logo-secretaria{
-/*height: 23vh; /* aumenta a logo proporcionalmente */
 height:120px;
-object-fit: contain;
+object-fit:contain;
 }
 
-/* lado direito */
+.topo h1{
+font-size:3vw;
+color:#00ff88;
+}
+
+/* DIREITA */
+
 .topo-direita{
 display:flex;
 align-items:center;
 gap:25px;
-font-size:18px;
-}
-
-/* estilos */
-.relogio{
-font-size:26px;
-font-weight:bold;
-}
-
-.data{
-opacity:0.8;
-font-size: 2.5vw;
-  color: #00ff88;
+flex-wrap:wrap;
 }
 
 .clima{
+font-size:1.5vw;
 color:#00d0ff;
 font-weight:bold;
 }
 
 .dolar{
+font-size:1.5vw;
 color:#2aff00;
 font-weight:bold;
 }
 
-.clima, .dolar{
-display:flex;
-align-items:center;
-gap:8px;
-font-size:22px;
+.relogio{
+font-size:3vw;
 font-weight:bold;
+color:#00ff88;
+animation:brilho 2s infinite alternate;
 }
 
-.icone{
-font-size:36px;
+.data{
+font-size:1.5vw;
+opacity:0.9;
+color:#00ff88;
+}
+
+/* CARDS */
+
+.cards{
+flex:1;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:2vw;
+align-items:center;
+}
+
+.card{
+background:#111;
+border-radius:15px;
+padding:2vh;
+text-align:center;
+box-shadow:0 0 20px rgba(0,255,100,0.3);
+animation:brilho 3s infinite alternate;
+}
+
+.card h2{
+font-size:3vw;
+}
+
+.card span{
+font-size:1.3vw;
+opacity:0.7;
 }
 
 .valor{
-font-size:26px;
+font-size:3vw;
+font-weight:bold;
+color:#00ff88;
+}
 
+/* VARIAÇÃO */
+
+.variacao{
+font-size:1.3vw;
+font-weight:bold;
+}
+
+.alta{
+color:#00ff00;
+}
+
+.baixa{
+color:#ff3b3b;
+}
+
+/* TICKER */
+
+.ticker{
+height:8vh;
+overflow:hidden;
+white-space:nowrap;
+background:#111;
+display:flex;
+align-items:center;
+border-radius:10px;
+}
+
+.ticker-content{
+display:inline-block;
+animation:scroll 30s linear infinite;
+font-size:2vw;
+color:#00ff88;
+padding-left:20px;
+}
+
+/* ANIMAÇÕES */
+
+@keyframes scroll{
+
+from{transform:translateX(100%);}
+to{transform:translateX(-100%);}
 
 }
 
-/* ---------- RESTANTE DO SEU CSS ---------- */
-/* Mantém exatamente como você já tinha, incluindo .cards, .card, ticker etc. */
+@keyframes brilho{
 
-body {
-  margin: 0;
-  overflow: hidden;
-  background: #000;
-  font-family: Arial, Helvetica, sans-serif;
-  color: white;
+from{text-shadow:0 0 5px #00ff88;}
+to{text-shadow:0 0 25px #00ff88;}
+
 }
 
-.painel {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 2vh 3vw;
-  box-sizing: border-box;
+/* LOADING */
+
+.loading{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+font-size:40px;
+font-weight:bold;
 }
 
-.topo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+.logo-secretaria{
+height:80px;
 }
 
-.topo h1 {
-  font-size: 3vw;
+.topo h1{
+font-size:6vw;
 }
 
-.relogio {
-  font-size: 3vw;
-  font-weight: bold;
-  color: #00ff88;
-  animation: brilho 2s infinite alternate;
+.relogio{
+font-size:6vw;
 }
 
-.cards {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2vw;
-  align-items: center;
+.clima,.dolar,.data{
+font-size:3vw;
 }
 
-.card {
-  background: #111;
-  border-radius: 15px;
-  padding: 2vh;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(0,255,100,0.3);
-  animation: brilho 3s infinite alternate;
+.card h2{
+font-size:6vw;
 }
 
-.card h2 {
-  font-size: 3.1vw;
+.valor{
+font-size:6vw;
 }
 
-.card p {
-  font-size: 3.1vw;
-  font-weight: bold;
-  color: #00ff88;
 }
 
-.ticker {
-  height: 8vh;
-  overflow: hidden;
-  white-space: nowrap;
-  background: #111;
-  display: flex;
-  align-items: center;
+@media(max-width:500px){
+
+.topo{
+flex-direction:column;
+align-items:flex-start;
 }
 
-.ticker-content {
-  display: inline-block;
-  animation: scroll 25s linear infinite;
-  font-size: 2vw;
-  color: #00ff88;
+.topo-direita{
+width:100%;
+justify-content:space-between;
 }
 
-@keyframes scroll {
-  from { transform: translateX(100%); }
-  to { transform: translateX(-100%); }
+.cards{
+grid-template-columns:1fr 1fr;
 }
 
-@keyframes brilho {
-  from { text-shadow: 0 0 5px #00ff88; }
-  to { text-shadow: 0 0 20px #00ff88; }
 }

@@ -2,128 +2,175 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 
-// Imagem da Secretaria
 import logoSecretaria from "./assets/SEDEEA.jpg";
 
 function App() {
-  const [cotacoes, setCotacoes] = useState([]);
-  const [hora, setHora] = useState(new Date());
-  const [dolar, setDolar] = useState(null);
-const [clima, setClima] = useState(null);
-const [carregado, setCarregado] = useState(false);
 
+const [cotacoes,setCotacoes] = useState([]);
+const [hora,setHora] = useState(new Date());
+const [dolar,setDolar] = useState(null);
+const [clima,setClima] = useState(null);
+const [carregado,setCarregado] = useState(false);
 
-  useEffect(() => {
-    buscarCotacoes();
+const [noticias] = useState([
+"CAFÉ: mercado segue firme com exportações aquecidas",
+"BOI GORDO: preços sobem com menor oferta",
+"MILHO: mercado atento ao clima no Brasil",
+"SOJA: China aumenta demanda por grãos",
+"AGRONEGÓCIO segue impulsionando economia brasileira"
+]);
 
-    const atualizar = setInterval(buscarCotacoes, 10000);
-    const relogio = setInterval(() => setHora(new Date()), 1000);
+useEffect(()=>{
 
-    return () => {
-      clearInterval(atualizar);
-      clearInterval(relogio);
-    };
-  }, []);
+buscarCotacoes();
 
-  const buscarCotacoes = async () => {
-    try {
-      const response = await axios.get("http://172.16.0.100:4000/cotacoes");
+const atualizar = setInterval(buscarCotacoes,10000);
+const relogio = setInterval(()=>setHora(new Date()),1000);
 
-console.log("API RETORNOU:", response.data); // 👈 VERIFICAR
+return()=>{
+clearInterval(atualizar);
+clearInterval(relogio);
+}
 
+},[]);
 
-     // setCotacoes(response.data);//trocadopara a versão mais robusta
-     setCotacoes(response.data.dados);
+const buscarCotacoes = async ()=>{
 
-     setDolar(response.data.dolar);
-    setClima(response.data.clima);
-    setCotacoes(response.data.dados);
-setDolar(response.data.dolar);
-setClima(response.data.clima);
+try{
+
+const response = await axios.get("http://172.16.0.99:4000/cotacoes");
+
+setCotacoes(response.data.dados || []);
+setDolar(response.data.dolar || null);
+setClima(response.data.clima || null);
+
 setCarregado(true);
 
-    } catch (error) {
-      console.error("Erro ao buscar cotações:", error);
-    }
-  };
+}catch(error){
 
-  // Formata a data
-  const formatarData = (data) => {
-    return data.toLocaleDateString("pt-BR", {
-       day: '2-digit',
-    month: '2-digit',
-    year: '2-digit',
-    });
-  };
+console.log("Erro API:",error);
+setCarregado(true);
 
-if (!carregado) {
-  return <div className="loading">Carregando painel...</div>;
 }
-  return (
-    <div className="painel">
 
-  {/* ---------- TOPO ---------- */}
-  <div className="topo">
+}
 
-    {/* ESQUERDA */}
-    <div className="topo-esquerda">
-      <h1>🌾 PAINEL AGRO</h1>
-      <img src={logoSecretaria} alt="Secretaria" className="logo-secretaria" />
-    </div>
+const formatarData = (data)=>{
 
-    {/* DIREITA */}
-    <div className="topo-direita">
+return data.toLocaleDateString("pt-BR",{
+day:"2-digit",
+month:"2-digit",
+year:"numeric"
+});
+
+}
+
+if(!carregado){
+
+return(
+<div className="loading">
+Carregando painel...
+</div>
+)
+
+}
+
+return(
+
+<div className="painel">
+
+{/* TOPO */}
+
+<div className="topo">
+
+<div className="topo-esquerda">
+
+<img
+src={logoSecretaria}
+alt="Secretaria"
+className="logo-secretaria"
+/>
+
+<h1>🌾 PAINEL AGRO</h1>
+
+</div>
+
+<div className="topo-direita">
 
 <div className="clima">
-  <span className="icone">🌦</span>
-  <span className="valor">{clima?.valor ?? "--"}</span>
+🌦 {clima?.valor ?? "--"}
 </div>
 
 <div className="dolar">
-  <span className="icone">💵</span>
-  <span className="valor">${dolar?.valor ?? "--"}</span>
+💵 {dolar?.valor ?? "--"}
 </div>
 
-      <div className="relogio">
-        {hora.toLocaleTimeString()}
-      </div>
-
-      <div className="data">
-        {formatarData(hora)}
-      </div>
-
-    </div>
-
-  </div>
-  
-
-
-
-
-  
-      {/* ---------- CARDS ---------- */}
-      <div className="cards">
-        {cotacoes.map((item, index) => (
-          <div key={index} className="card">
-  <h2>{item.nome}</h2>
-  <span>{item.cidade}</span>
-  <p>R$ {item.valor}</p>
+<div className="relogio">
+{hora.toLocaleTimeString("pt-BR")}
 </div>
-        ))}
-      </div>
 
-      {/* ---------- TICKER ---------- */}
-      <div className="ticker">
-        <div className="ticker-content">
-          {cotacoes.map((item, index) => (
-            <span key={index}>
-              {item.nome} - R$ {item.valor} &nbsp;&nbsp;&nbsp;&nbsp;
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+<div className="data">
+{formatarData(hora)}
+</div>
+
+</div>
+
+</div>
+
+{/* CARDS */}
+
+<div className="cards">
+
+{cotacoes.map((item,index)=>{
+
+const subiu = item.variacao >= 0;
+
+return(
+
+<div key={index} className="card">
+
+<h2>{item.nome}</h2>
+
+<span>{item.cidade}</span>
+
+<p className="valor">
+R$ {item.valor}
+</p>
+
+<div className={subiu ? "variacao alta":"variacao baixa"}>
+
+{subiu ? "▲":"▼"} {item.variacao ?? "0"}%
+
+</div>
+
+</div>
+
+)
+
+})}
+
+</div>
+
+{/* TICKER */}
+
+<div className="ticker">
+
+<div className="ticker-content">
+
+{noticias.map((n,index)=>(
+<span key={index}>
+{n} &nbsp;&nbsp;&nbsp;&nbsp;
+</span>
+))}
+
+</div>
+
+</div>
+
+</div>
+
+)
+
 }
 
 export default App;
